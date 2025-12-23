@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAVIYA MD MINI | WhatsApp Bot</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.7/axios.min.js"></script>
+
+<style>
+:root{
+  --red1:#ff0033;
+  --red2:#ff4d4d;
+  --red3:#ff0000;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  min-height:100vh;
+  font-family:'Rajdhani',sans-serif;
+  color:white;
+  background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.7)),
+  url("https://i.ibb.co/gbmpsVY5/tourl-1766388188431.jpg");
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* PAGES */
+.page{display:none;max-width:450px;width:100%;text-align:center;}
+.active{display:block;}
+
+/* BOX */
+.box,.home-box{
+  padding:35px;
+  border-radius:25px;
+  background:rgba(0,0,0,.6);
+  backdrop-filter:blur(18px);
+  box-shadow:0 0 40px rgba(255,0,0,.4);
+}
+
+/* LOGO */
+.logo-wrap{
+  width:140px;
+  height:140px;
+  margin:20px auto;
+  position:relative;
+}
+.logo-ring{
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  background:conic-gradient(red,yellow,lime,cyan,blue,magenta,red);
+  filter:blur(14px);
+  animation:spin 4s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.logo-core{
+  position:absolute;
+  inset:12px;
+  border-radius:50%;
+  overflow:hidden;
+  border:4px solid white;
+}
+.logo-core img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* TITLES */
+h1{
+  font-family:'Orbitron';
+  margin-bottom:10px;
+  text-shadow:0 0 15px var(--red2);
+}
+
+/* BUTTONS */
+.btn{
+  width:100%;
+  padding:14px;
+  margin-top:15px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(90deg,var(--red1),var(--red2),var(--red3));
+  color:white;
+  font-size:15px;
+  cursor:pointer;
+  transition:.3s;
+}
+.btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 0 30px var(--red2);
+}
+
+/* BACK BUTTON */
+.back-btn{
+  margin-top:12px;
+  background:transparent;
+  border:2px solid var(--red2);
+  color:var(--red2);
+  padding:10px;
+  border-radius:12px;
+  font-family:'Orbitron';
+  cursor:pointer;
+  transition:.3s;
+}
+.back-btn:hover{
+  background:var(--red2);
+  color:black;
+  box-shadow:0 0 20px var(--red2);
+}
+
+/* INPUT */
+.input-container{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-top:15px;
+}
+.input-container input{
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:rgba(255,0,0,.35);
+  color:white;
+  font-size:16px;
+}
+
+/* PAIR RESULT */
+#pair{
+  margin-top:20px;
+  padding:15px;
+  border-radius:12px;
+  background:radial-gradient(circle,rgba(255,0,0,.5),rgba(0,0,0,.7));
+  box-shadow:0 0 25px rgba(255,0,0,.6);
+  font-family:'Orbitron';
+  font-size:20px;
+  cursor:pointer;
+}
+
+/* ACTIVE BOT COUNT */
+.bot-count{
+  margin-top:15px;
+  padding:12px;
+  border-radius:12px;
+  background:radial-gradient(circle at top, rgba(255,0,0,.5), rgba(0,0,0,.8));
+  box-shadow:0 0 25px rgba(255,0,0,.8);
+  font-family:'Orbitron';
+  font-size:16px;
+}
+.bot-count span{
+  font-size:22px;
+  color:#fff;
+  text-shadow:0 0 10px #ff0000;
+}
+
+/* TOOLBAR */
+.toolbar{
+  position:fixed;
+  top:15px;
+  right:15px;
+  display:flex;
+  gap:12px;
+  z-index:999;
+}
+.toolbar a{
+  width:45px;
+  height:45px;
+  background:linear-gradient(135deg,var(--red1),var(--red2));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  color:white;
+  font-size:20px;
+  box-shadow:0 0 20px rgba(255,0,0,.6);
+  transition:.3s;
+}
+.toolbar a:hover{transform:scale(1.15)}
+
+audio{display:none;}
+</style>
+</head>
+
+<body>
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+  <a href="https://wa.me/94778430626" target="_blank"><i class="fab fa-whatsapp"></i></a>
+  <a href="#"><i class="fas fa-users"></i></a>
+  <a href="#"><i class="fas fa-bullhorn"></i></a>
+</div>
+
+<!-- HOME PAGE -->
+<div id="homePage" class="page active home-box">
+  <div class="logo-wrap">
+    <div class="logo-ring"></div>
+    <div class="logo-core">
+      <img src="https://i.ibb.co/gbxcpRgf/tourl-1766382264252.jpg">
+    </div>
+  </div>
+  <h1>RAVIYA MD WHATSAPP BOT</h1>
+  <p>Secure • Fast • Advanced</p>
+
+  <button class="btn" onclick="switchPage('ownerPage')">
+    <i class="fas fa-user"></i> ADD OWNER DETAILS
+  </button>
+
+  <div class="bot-count">
+    🤖 Active Bots : <span id="botCount">0</span>
+  </div>
+</div>
+
+<!-- OWNER DETAILS -->
+<div id="ownerPage" class="page box">
+  <h1>OWNER DETAILS</h1>
+
+  <!-- BACK BUTTON -->
+  <button class="back-btn" onclick="switchPage('homePage')">
+    <i class="fas fa-arrow-left"></i> BACK
+  </button>
+
+  <!-- NEON OWNER LOGO -->
+  <div class="logo-wrap">
+    <div class="logo-ring"></div>
+    <div class="logo-core">
+      <img src="https://i.ibb.co/gbxcpRgf/tourl-1766382264252.jpg">
+    </div>
+  </div>
+
+  <div class="input-container">
+    <input placeholder="PAMUDINA RAVIHARA">
+    <input placeholder="077843066">
+    <input placeholder="raviyamdmini@gmail.com">
+  </div>
+
+  <button class="btn" onclick="switchPage('pairPage')">
+    <i class="fas fa-arrow-right"></i> NEXT
+  </button>
+
+  <div class="bot-count">
+    🤖 Active Bots : <span id="botCountOwner">0</span>
+  </div>
+</div>
+
+<!-- PAIR PAGE -->
+<div id="pairPage" class="page box">
+  <h1>PAIR CODE</h1>
+
+  <!-- BACK BUTTON -->
+  <button class="back-btn" onclick="switchPage('ownerPage')">
+    <i class="fas fa-arrow-left"></i> BACK
+  </button>
+
+  <div class="input-container">
+    <input id="number" placeholder="+9477xxxxxxx">
+    <button class="btn" id="submit">GENERATE CODE</button>
+  </div>
+
+  <div id="pair">Your code will appear here</div>
+</div>
+
+<!-- MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="https://files.catbox.moe/6nwx91.mp4" type="audio/mpeg">
+</audio>
+
+<script>
+const music=document.getElementById("bgMusic");
+window.addEventListener("load",()=>{
+  music.volume=0.4;
+  music.play().catch(()=>{
+    document.addEventListener("click",()=>music.play(),{once:true});
+  });
+});
+
+function switchPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+// Active bot count demo
+let activeBots=128;
+function updateBots(){
+  document.getElementById("botCount").innerText=activeBots;
+  document.getElementById("botCountOwner").innerText=activeBots;
+}
+setInterval(()=>{activeBots++;updateBots()},5000);
+updateBots();
+
+// Generate pair code
+document.getElementById("submit").onclick=async()=>{
+  const num=document.getElementById("number").value.replace(/[^0-9]/g,"");
+  const pair=document.getElementById("pair");
+  if(num.length<11){pair.innerHTML="❌ Invalid number";return;}
+  pair.innerHTML="⏳ Generating code...";
+  try{
+    const {data}=await axios(`/code?number=${num}`);
+    pair.innerHTML=`CODE: <b>${data.code}</b>`;
+  }catch{
+    pair.innerHTML="⚠️ Service unavailable";
+  }
+};
+</script>
+
+</body>
+</html>
